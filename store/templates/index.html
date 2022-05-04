@@ -1,0 +1,87 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% load humanize %}
+{% block content%}
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css?family=Kanit:500">
+<style>
+    body{
+        font-family: Kanit;
+    }
+</style>
+
+<div class="container">
+    <div class="position-relative overflow-hidden p-1 p-md-10 text-center bg-white">
+        <div class="col-md-10 p-lg-0 mx-auto my-4">
+            <h1 class="text-dark font-weight-bold">SHOP</h1>
+            <p class="lead ">ตุ๊กตาน่ารัก ยินดีให้บริการ เชิญเลือกซื้อน้อนตุ๊กตาตามหมวดหมู่ได้เล๊ยย</p>
+            <a class="btn btn-outline-danger font-weight-bolder" href="{% url 'home'%}">ตุ๊กตาน่ารัก</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/animal">ANIMAL</a>
+            <a class="p-3 text-dark font-weight-bold" href="/category/bear">BEAR</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/character">CHARACTER</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/dcuniverse">DC UNIVERSE</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/disney">DISNEY</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/marvel">MARVEL</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/onepiece">ONEPIECE</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/pokemon">POKEMON</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/pony">PONY</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/rilakkuma">RILAKKUMA</a>
+            <a class="p-3 text-dark font-weight-bolder" href="/category/snoopy">SNOOPY</a>
+        </div>
+    </div>
+    <div class="row my-4">
+    {% for product in products %}
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="{{product.images.url}}" alt=""></a>
+          <div class="card-body">
+            <h6 class="text-danger">฿ {{product.price|intcomma}}</h6>
+            <h6 class="card-title">
+              <a class="text-dark" href="{{product.get_url}}">{{product.name}}</a>
+            </h6>
+          </div>
+         
+          <div class="card-footer">
+            {% if product.stock <= 0 %}
+                <h5 class="text-danger">สินค้าหมด</h5>
+
+            {% else %}
+                <h6 class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{%url 'addCart' product.id %}" class="btn btn-primary">หยิบใส่ตะกร้า</a></h6>
+                
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+    </div>
+    <nav aria-label="pagination">
+        {% if products.paginator.num_pages > 1 %}
+        <ul class="pagination">
+            {% for page_number in products.paginator.page_range %}
+              <li class="page-item
+              {% if products.number == page_number %}
+                    active
+              {% endif %}
+              "><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+      </nav>
+          
+    </body>
+      
+</div>
+</body>
+<footer class="footer mt-auto py-5 bg-light">
+    <div class="container">
+        <h1>ตุ๊กตาน่ารัก.COM</h1>
+        <p class="text-dark">ร้านขายตุ๊กตา ราคาถูก ลิขสิทธิ์แท้จากผู้ผลิต มีมาตรฐาน มอก.
+            <br>สินค้าของเรารับมาจากโรงงานผู้ผลิตโดยตรง ซึ่งเป็นสินค้าตัวเดียวกับที่อยู่ตามห้างสรรพสินค้า
+            <br>ติดต่อเรา Facebook: ตุ๊กตาน่ารัก.com LINE: @tuktanarak11, Tel: 0801234569</p>
+    </div> 
+</footer>
+
+{% endblock %}
+

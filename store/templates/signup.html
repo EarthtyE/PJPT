@@ -1,0 +1,22 @@
+{% extends 'layouts.html' %}
+{% block content%}
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css?family=Kanit:500">
+<style>
+    body{
+        font-family: Kanit;
+    }
+</style>
+
+<div class="container col-sm-6 my-5">
+        <h1 align="center">ลงทะเบียนเพื่อสั่งสินค้า</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <center><input type="submit" class="btn btn-success" value="Register"></center>
+        </form>
+</div>
+
+{% endblock %}

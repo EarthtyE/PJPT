@@ -1,0 +1,22 @@
+{% extends 'layouts.html' %}
+{% block content%}
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css?family=Kanit:500">
+<style>
+    body{
+        font-family: Kanit;
+    }
+</style>
+
+<div class="container col-sm-4 my-5">
+        <h1 align="center">ลงชื่อเข้าใช้ระบบ</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <center><input type="submit" value="Login" class="btn btn-success"></center>
+        </form>
+</div>
+
+{% endblock %}
